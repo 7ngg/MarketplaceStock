@@ -10,7 +10,6 @@ namespace StockDataLayer.Contexts
         public MarketplaceStockContext(DbContextOptions<MarketplaceStockContext> opts) : base(opts) { }
 
         public DbSet<Order> Orders { get; set; }
-        // public DbSet<OrderStatus> Statuses { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -19,8 +18,57 @@ namespace StockDataLayer.Contexts
             var builder = new ConfigurationBuilder();
             builder.AddJsonFile("app-settings.json");
             var config = builder.Build();
-            var connectionString = config.GetConnectionString("Step");
+            var connectionString = config.GetConnectionString("Local");
             optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>(user => 
+            {
+                user.HasKey(e => e.Id);
+                user
+                    .Property(u => u.Username)
+                    .HasColumnName("Username")
+                    .IsRequired()
+                    .HasMaxLength(16);
+                user
+                    .Property(u => u.Password)
+                    .HasColumnName("Password")
+                    .IsRequired()
+                    .HasMaxLength(16);
+                user
+                    .Property(u => u.Email)
+                    .HasColumnName("Email")
+                    .IsRequired()
+                    .HasMaxLength(50);
+                user
+                    .HasMany(u => u.Orders)
+                    .WithOne(p => p.Owner)
+                    .HasForeignKey(o => o.UserId)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<Order>(order => {
+                order.HasKey(o => o.Id);
+                order
+                    .Property(o => o.Date)
+                    .HasColumnName("Date")
+                    .IsRequired();
+                order
+                    .Property(o => o.Status)
+                    .HasColumnName("Status")
+                    .IsRequired();
+            });
+        
+            modelBuilder.Entity<Product>(product => 
+            {
+                product.HasKey(p => p.Id);
+                product
+                    .Property(p => p.Name)
+                    .HasColumnName("Name")
+                    .IsRequired(); 
+            });
         }
     }
 }
