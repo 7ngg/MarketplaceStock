@@ -23,7 +23,7 @@ namespace MarketplaceStock.Pages
             if (password == confirm)
             {
                 var users = _context.Users;
-                users.Add(new User() { Username = username, Password = password, Email = email });
+                users.Add(new User() { Username = username, Password = BCrypt.Net.BCrypt.EnhancedHashPassword(password), Email = email });
                 _context.SaveChanges();
             }
         }
