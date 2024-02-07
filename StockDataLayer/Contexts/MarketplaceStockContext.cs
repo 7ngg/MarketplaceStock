@@ -35,8 +35,7 @@ namespace StockDataLayer.Contexts
                 user
                     .Property(u => u.Password)
                     .HasColumnName("Password")
-                    .IsRequired()
-                    .HasMaxLength(16);
+                    .IsRequired();
                 user
                     .Property(u => u.Email)
                     .HasColumnName("Email")

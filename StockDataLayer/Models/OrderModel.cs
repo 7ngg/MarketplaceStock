@@ -6,7 +6,6 @@ namespace StockDataLayer.Models
         public DateTime Date { get; }
 
         #region Order Status
-        public int StatusId { get; set; }
         public OrderStatus Status { get; }
         #endregion
 
