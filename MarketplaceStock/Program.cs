@@ -1,7 +1,20 @@
+using MarketplaceStock.Services;
+using MarketplaceStock.Services.Intefaces;
+using Microsoft.EntityFrameworkCore;
+using StockDataLayer.Contexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>();
+builder.Services.AddSingleton<IDataConnectionService, DataConnectionService>();
+
+builder.Services.AddDbContext<MarketplaceStockContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Local"));
+});
 
 var app = builder.Build();
 

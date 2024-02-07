@@ -112,3 +112,15 @@ body {
 .register-link p a:hover {
     text-decoration: underline;
 }
+
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    font-size: 18px;
+}
+
+.top-left a {
+    color: #fff;
+    text-decoration: none;
+}

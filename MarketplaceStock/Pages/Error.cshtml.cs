@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MarketplaceStock.Pages
 {
-    public class IndexModel : PageModel
+    public class ErrorModel : PageModel
     {
         public void OnGet()
         {
-            // Response.Redirect("/SignUp");
         }
     }
 }
