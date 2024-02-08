@@ -1,0 +1,16 @@
+header {
+  background: #363636;
+}
+
+.navigaton-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.navbar-text {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}

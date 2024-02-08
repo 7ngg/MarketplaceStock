@@ -1,0 +1,30 @@
+﻿@page
+@model MarketplaceStock.Pages.Admin.AdminIndexModel
+@{
+    Layout = "../Shared/_Layout";
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/admin.css">
+    <script src="~/js/site.js"></script>
+</head>
+
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Users</a>
+        <a href="#">Products</a>
+    </div>
+
+    <div id="main">
+        <span onclick="openNav()">&#9776;</span>
+    </div>
+
+</body>
+
+</html>

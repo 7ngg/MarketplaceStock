@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MarketplaceStock.Pages
+namespace MarketplaceStock.Pages.Admin
 {
-    public class IndexModel : PageModel
+    public class AdminIndexModel : PageModel
     {
         public void OnGet()
         {
-            Response.Redirect("/Admin/AdminIndex");
         }
     }
 }

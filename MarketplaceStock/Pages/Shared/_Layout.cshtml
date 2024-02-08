@@ -1,12 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
 </head>
-<body>
-    <ul>
-        <li><a href="#">Sign out</a></li>
-    </ul>
-</body>
+
+<header>
+    <nav>
+        <div class="navigaton-bar">
+            <h3><a class="navbar-text" asp-page="/Index">Marketplace Stock</a></h3>
+            <a class="navbar-text signout-text" asp-page="/Authorization">Sign out</a>
+        </div>
+    </nav>
+
+    @RenderBody()
+</header>
+
 </html>
