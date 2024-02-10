@@ -1,5 +1,4 @@
-﻿@page
-@model MarketplaceStock.Pages.AuthorizationModel
+@model StockDataLayer.Models.User
 @{
 }
 
@@ -9,10 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authorizaton</title>
-    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/auth.css">
 </head>
 
-<form method="post">
+<form method="post" asp-action="SignIn">
     <div class="wrapper">
         <h1>Login</h1>
         <div class="input-box">
@@ -27,10 +26,10 @@
             <a href="#">Forgot password?</a>
         </div>
 
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn">Sign In</button>
 
         <div class="register-link">
-            <p>Don't have an account? <a href="/SignUp">Register</a></p>
+            <p>Don't have an account? <a asp-controller="Authorization" asp-action="SignUp">Register</a></p>
         </div>
     </div>
 </form>
