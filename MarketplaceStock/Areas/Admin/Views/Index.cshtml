@@ -1,29 +1,54 @@
+@using StockDataLayer.Models;
+@model List<User>;
 @{
     Layout = "_Layout";
 }
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
     <link rel="stylesheet" href="~/css/admin.css">
     <script src="~/js/site.js"></script>
 </head>
-
 <body>
-
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Users</a>
         <a href="#">Products</a>
     </div>
-
     <div id="main">
         <span onclick="openNav()">&#9776;</span>
     </div>
-
+    <div class="table-container">
+        <table class="table-text">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <a href="#">
+                            <td>@user.Id</td>
+                            <td><a href="#" onclick="openForm()" id="popup-link">@user.Username</a></td>
+                            <td>@user.Password</td>
+                            <td>@user.Email</td>
+                        </a>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div id="popup-window">
+        <h3>@Model.First().Username</h3>
+        <button id="close-btn" onclick="closeForm()">&times;</button>
+    </div>
 </body>
-
 </html>
