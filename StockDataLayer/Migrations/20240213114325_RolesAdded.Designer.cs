@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockDataLayer.Contexts;
 
@@ -11,9 +12,11 @@ using StockDataLayer.Contexts;
 namespace StockDataLayer.Migrations
 {
     [DbContext(typeof(MarketplaceStockContext))]
-    partial class MarketplaceStockContextModelSnapshot : ModelSnapshot
+    [Migration("20240213114325_RolesAdded")]
+    partial class RolesAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

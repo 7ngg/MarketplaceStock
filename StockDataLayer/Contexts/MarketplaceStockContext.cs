@@ -46,6 +46,11 @@ namespace StockDataLayer.Contexts
                     .WithOne(p => p.Owner)
                     .HasForeignKey(o => o.UserId)
                     .IsRequired();
+                user
+                    .Property(u => u.Role)
+                    .HasColumnName("Role")
+                    .HasDefaultValue(UserRole.User)
+                    .IsRequired();
             });
 
             modelBuilder.Entity<Order>(order => {
@@ -57,6 +62,7 @@ namespace StockDataLayer.Contexts
                 order
                     .Property(o => o.Status)
                     .HasColumnName("Status")
+                    .HasDefaultValue(OrderStatus.OrderPlaced)
                     .IsRequired();
             });
         
