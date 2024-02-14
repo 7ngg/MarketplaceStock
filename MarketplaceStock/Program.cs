@@ -37,4 +37,16 @@ app.MapAreaControllerRoute(
     pattern: "Admin/{controller=Admin}/{action=Index}/{id?}"
 );
 
+app.MapAreaControllerRoute(
+    name: "Moderator",
+    areaName: "Moderator",
+    pattern: "Moderator/{controller=Moderator}/{action=Index}/{id?}"
+);
+
+app.MapAreaControllerRoute(
+    name: "User",
+    areaName: "User",
+    pattern: "User/{controller=User}/{action=Index}/{id?}"
+);
+
 app.Run();
