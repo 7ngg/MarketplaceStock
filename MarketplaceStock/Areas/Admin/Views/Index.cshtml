@@ -1,5 +1,5 @@
 @using StockDataLayer.Models;
-@model List<User>;
+@model MarketplaceStock.Areas.Admin.Controllers.AdminController;
 @{
     Layout = "_Layout";
 }
@@ -9,8 +9,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
-    <link rel="stylesheet" href="~/css/admin.css">
-    <script src="~/js/site.js"></script>
+    <link rel="stylesheet" href="~/css/membersArea.css">
+    <script src="~/js/admin.js" defer></script>
+    <script src="~/js/site.js" defer></script>
 </head>
 <body>
     <div id="mySidenav" class="sidenav">
@@ -32,23 +33,29 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var user in Model)
+                @foreach (var user in Model.Context.Users)
                 {
                     <tr>
-                        <a href="#">
-                            <td>@user.Id</td>
-                            <td><a href="#" onclick="openForm()" id="popup-link">@user.Username</a></td>
-                            <td>@user.Password</td>
-                            <td>@user.Email</td>
-                        </a>
+                        <td>@user.Id</td>
+                        <td id="username"><a href="#" onclick="showForm()" id="popup-link">@user.Username</a></td>
+                        <td id="password">@user.Password</td>
+                        <td id="email">@user.Email</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
     <div id="popup-window">
-        <h3>@Model.First().Username</h3>
+        <h3 id="popup-title"></h3>
         <button id="close-btn" onclick="closeForm()">&times;</button>
+        <div class="user-data">
+            <input name="newUsername" id="popup-username" type="text" placeholder="Username">
+            <input name="newPassword" id="popup-password" type="text" placeholder="Password">
+            <input name="newEmail" id="popup-email" type="text" placeholder="Email">
+        </div>
+        <form method="post" asp-action="Save">
+            <button type="submit" id="save-btn">Save</button>
+        </form>
     </div>
 </body>
 </html>

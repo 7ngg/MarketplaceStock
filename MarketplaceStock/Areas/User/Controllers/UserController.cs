@@ -7,7 +7,7 @@ namespace MarketplaceStock.Areas.User.Controllers
         [Area("User")]
         public IActionResult Index()
         {
-            return View();
+            return View("~/Areas/User/Views/Index.cshtml");
         }
     }
 }

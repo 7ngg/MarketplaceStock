@@ -8,11 +8,3 @@ function closeNav() {
     document.getElementById("main").style.marginLeft = "0";
 }
 
-function openForm() {
-    document.getElementById("popup-window").style.display = "block";
-}
-
-function closeForm() {
-    document.getElementById("popup-window").style.display = "none"
-}
-

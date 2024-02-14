@@ -1,23 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using StockDataLayer.Contexts;
+using StockDataLayer.Models;
 
 namespace MarketplaceStock.Areas.Admin.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly MarketplaceStockContext _context;
+        public MarketplaceStockContext Context;
 
         [ActivatorUtilitiesConstructor]
         public AdminController(MarketplaceStockContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         [Area("Admin")]
         public IActionResult Index()
         {
-            var users = _context.Users.ToList();
-            return View("~/Areas/Admin/Views/Index.cshtml", users);
+            return View("~/Areas/Admin/Views/Index.cshtml", this);
+        }
+
+        public void Save(string newUsername, string newPassword, string newEmail)
+        {
+            
         }
     }
 }

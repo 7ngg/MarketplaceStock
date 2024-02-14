@@ -29,7 +29,7 @@ namespace MarketplaceStock.Controllers
             User user = _context.Users.Where(u => u.Username == username).FirstOrDefault();
             if (BCrypt.Net.BCrypt.EnhancedVerify(password, user.Password))
             {
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", $"{user.Role}");
             }
 
             return RedirectToPage("/SignIn");
@@ -49,6 +49,11 @@ namespace MarketplaceStock.Controllers
             }
 
             return View();
+        }
+
+        public IActionResult SignOut()
+        {
+            return RedirectToAction("SignIn");
         }
     }
 }
