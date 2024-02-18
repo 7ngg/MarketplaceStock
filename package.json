@@ -3,6 +3,7 @@
     "private": true,
     "version": "1.0.0",
     "scripts": {
-        "start": "dotnet run --project MarketplaceStock"
+        "start": "dotnet run --project MarketplaceStock",
+        "watch": "dotnet watch --project MarketplaceStock"
     }
 }
