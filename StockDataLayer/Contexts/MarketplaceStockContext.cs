@@ -25,9 +25,11 @@ namespace StockDataLayer.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(new User{
+                Id = 1,
                 Username = "admin",
                 Password = BCrypt.Net.BCrypt.EnhancedHashPassword("admin"),
-                Email = "stock_admin@gmail.com"
+                Email = "stock_admin@gmail.com",
+                Role = UserRole.Admin
             });
             modelBuilder.Entity<User>(user => 
             {
