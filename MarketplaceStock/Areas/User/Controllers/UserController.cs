@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StockDataLayer.Models;
 
 namespace MarketplaceStock.Areas.User.Controllers
 {
@@ -9,5 +10,7 @@ namespace MarketplaceStock.Areas.User.Controllers
         {
             return View("~/Areas/User/Views/Index.cshtml");
         }
+
+        public IActionResult Store() => View("~/Areas/User/Views/Store.cshtml");
     }
 }
