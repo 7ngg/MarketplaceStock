@@ -1,5 +1,5 @@
 @using StockDataLayer.Models;
-@model MarketplaceStock.Areas.Admin.Controllers.AdminController;
+@model IEnumerable<User>;
 @{
     Layout = "_Layout";
 }
@@ -26,20 +26,20 @@
         <table class="table-text">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Email</th>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Username)</th>
+                    <th>@Html.DisplayNameFor(model => model.Password)</th>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var user in Model.Context.Users)
+                @foreach (var user in Model)
                 {
                     <tr>
-                        <td>@user.Id</td>
-                        <td id="username"><a href="#" onclick="showForm()" id="popup-link">@user.Username</a></td>
-                        <td id="password">@user.Password</td>
-                        <td id="email">@user.Email</td>
+                        <td>@Html.DisplayFor(modelItem => user.Id)</td>
+                        <td><a href="#" onclick="showForm('@user.Id')">@Html.DisplayFor(modelItem => user.Username)</a></td>
+                        <td>@Html.DisplayFor(modelItem => user.Password)</td>
+                        <td>@Html.DisplayFor(modelItem => user.Email)</td>
                     </tr>
                 }
             </tbody>
@@ -49,9 +49,9 @@
         <h3 id="popup-title"></h3>
         <button id="close-btn" onclick="closeForm()">&times;</button>
         <div class="user-data">
-            <input name="newUsername" id="popup-username" type="text" placeholder="Username">
-            <input name="newPassword" id="popup-password" type="text" placeholder="Password">
-            <input name="newEmail" id="popup-email" type="text" placeholder="Email">
+            <input id="username" type="text" placeholder="Username">
+            <input id="password" type="text" placeholder="Password">
+            <input id="email" type="text" placeholder="Email">
         </div>
         <form method="post" asp-action="Save">
             <button type="submit" id="save-btn">Save</button>
