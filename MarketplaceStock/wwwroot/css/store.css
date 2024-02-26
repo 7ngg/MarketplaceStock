@@ -1,6 +1,10 @@
+body {
+    background-color: mintcream;
+}
+
 .grid {
     display: grid;
-    grid-template-columns: 1fr 500px 1fr;
-    grid-template-rows: 100px 200px;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 30px;
     place-items: center;
 }

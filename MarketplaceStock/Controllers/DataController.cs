@@ -5,11 +5,11 @@ namespace MarketplaceStock.Areas.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : Controller
+    public class DataController : Controller
     {
         private readonly MarketplaceStockContext _context;
 
-        public UsersController(MarketplaceStockContext context)
+        public DataController(MarketplaceStockContext context)
         {
             _context = context;
         }

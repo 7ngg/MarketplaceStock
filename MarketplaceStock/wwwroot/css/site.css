@@ -1,15 +1,19 @@
 .navigation-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  background-color: #252525;
+  overflow: hidden;
 }
 
-.navbar-text {
-  color: #fff;
-  font-weight: 600;
+.navigation-bar a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
   text-decoration: none;
-  padding-top: 10px;
-  padding-right: 50px;
-  padding-left: 50px;
+  font-size: 16px;
+}
+
+.navigation-bar a:hover() {
+  background-color: #ddd;
+  color: white;
 }
 

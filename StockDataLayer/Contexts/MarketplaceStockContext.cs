@@ -15,10 +15,8 @@ namespace StockDataLayer.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var builder = new ConfigurationBuilder();
-            builder.AddJsonFile("app-settings.json");
-            var config = builder.Build();
-            var connectionString = config.GetConnectionString("Local");
+            var config = new ConfigurationBuilder().AddJsonFile("app-settings.json").Build();
+            var connectionString = config.GetConnectionString("Default");
             optionsBuilder.UseSqlServer(connectionString);
         }
 
@@ -73,6 +71,28 @@ namespace StockDataLayer.Contexts
                     .IsRequired();
             });
         
+            modelBuilder.Entity<Product>().HasData(
+                new Product() {
+                    Name = "Product 1", 
+                    Image = "https://i.imgur.com/LvKZW4A.png",
+                    Price = 100.0
+                },
+                new Product() {
+                    Name = "Product 2",
+                    Image = "https://i.imgur.com/lHDLsU4.png",
+                    Price = 200.0
+                },
+                new Product() {
+                    Name = "Product 3",
+                    Image = "https://i.imgur.com/174MybH.png",
+                    Price = 300.0
+                },
+                new Product() {
+                    Name = "Product 4",
+                    Image = "https://i.imgur.com/NXYAbHe.png",
+                    Price = 400.0
+                }
+            );
             modelBuilder.Entity<Product>(product => 
             {
                 product.HasKey(p => p.Id);
@@ -80,6 +100,13 @@ namespace StockDataLayer.Contexts
                     .Property(p => p.Name)
                     .HasColumnName("Name")
                     .IsRequired(); 
+                product
+                    .Property(p => p.Image)
+                    .HasColumnName("Image URL");
+                product
+                    .Property(p => p.Price)
+                    .HasColumnName("Price")
+                    .IsRequired();
             });
         }
     }

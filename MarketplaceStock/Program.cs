@@ -1,4 +1,10 @@
+using System.Text;
+using MarketplaceStock.Models;
+using MarketplaceStock.Services.Classes;
+using MarketplaceStock.Services.Intefaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StockDataLayer.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +14,29 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MarketplaceStockContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Local"));
+});
+
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserManagerService, UserManagerService>();
+
+builder.Services.AddAuthentication(opts => 
+{
+    opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(opts =>
+{
+    opts.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWTSettings:Issuer"],
+        ValidAudience = builder.Configuration["JWTSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:SecretKey"])),
+    };
 });
 
 var app = builder.Build();
@@ -25,28 +54,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Admin",
-    areaName: "Admin",
-    pattern: "Admin/{controller=Admin}/{action=Index}/{id?}"
-);
-
-app.MapAreaControllerRoute(
-    name: "Moderator",
-    areaName: "Moderator",
-    pattern: "Moderator/{controller=Moderator}/{action=Index}/{id?}"
-);
-
-app.MapAreaControllerRoute(
-    name: "User",
-    areaName: "User",
-    pattern: "User/{controller=User}/{action=Index}/{id?}"
-);
 
 app.Run();

@@ -1,3 +1,4 @@
+using MarketplaceStock.Services.Intefaces;
 using Microsoft.AspNetCore.Mvc;
 using StockDataLayer.Contexts;
 using StockDataLayer.Models;
@@ -6,11 +7,17 @@ namespace MarketplaceStock.Controllers
 {
     public class AuthorizationController : Controller
     {
-        private MarketplaceStockContext _context;
+        private readonly MarketplaceStockContext _context;
+        private readonly ITokenService _tokenService;
+        private readonly IConfiguration _configuration;
+        private readonly IUserManagerService _userManager;
 
-        public AuthorizationController(MarketplaceStockContext context)
+        public AuthorizationController(MarketplaceStockContext context, ITokenService tokenService, IConfiguration configuration, IUserManagerService userManager)
         {
             _context = context;
+            _tokenService = tokenService;
+            _configuration = configuration;
+            _userManager = userManager;
         }
 
         public IActionResult SignIn()
@@ -26,13 +33,15 @@ namespace MarketplaceStock.Controllers
         [HttpPost]
         public IActionResult SignIn(string username, string password)
         {
-            User user = _context.Users.Where(u => u.Username == username).FirstOrDefault();
-            if (BCrypt.Net.BCrypt.EnhancedVerify(password, user.Password))
-            {
-                return RedirectToAction("Index", $"{user.Role}");
-            }
+            var managedUser = _userManager.FindUsername(username);
+            if (managedUser == null) return BadRequest("Invalid credentials");
 
-            return RedirectToPage("/SignIn");
+            var isPasswordValid = _userManager.CheckPassword(managedUser, password);
+            if (!isPasswordValid) return BadRequest("Invalid credentials");
+
+            var user = _context.Users.First(u => u.Username == username);
+            var token = _tokenService.CreateToken(user);
+            return RedirectToAction("Index", $"{user.Role}", _context.Products);
         }
 
         [HttpPost]

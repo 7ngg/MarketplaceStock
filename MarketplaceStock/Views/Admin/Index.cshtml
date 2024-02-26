@@ -1,0 +1,26 @@
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/membersArea.css">
+    <script src="~/js/admin.js" defer></script>
+    <script src="~/js/site.js" defer></script>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/Admin/Users">Users</a>
+        <a href="/Admin/Products">Products</a>
+    </div>
+    <div id="main">
+        <span onclick="openNav()">&#9776;</span>
+    </div>
+</body>
+</html>

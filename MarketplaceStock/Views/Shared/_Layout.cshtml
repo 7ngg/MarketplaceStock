@@ -4,20 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 
-<header>
-    <nav>
-        <div class="navigation-bar">
-            <h3><a class="navbar-text" asp-page="/Index">Marketplace Stock</a></h3>
-            <a class="navbar-text" asp-controller="Authorization" asp-action="SignOut">Sign out</a>
-        </div>
-    </nav>
+<body>
+    <div class="navigation-bar">
+        <a class="navbar-text" asp-controller="Authorization" asp-action="SignOut">Sign out</a>
+    </div>
+</body>
 
-    @RenderBody()
-</header>
+@RenderBody()
 
 </html>

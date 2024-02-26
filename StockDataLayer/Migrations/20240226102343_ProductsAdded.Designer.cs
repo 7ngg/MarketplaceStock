@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockDataLayer.Contexts;
 
@@ -11,9 +12,11 @@ using StockDataLayer.Contexts;
 namespace StockDataLayer.Migrations
 {
     [DbContext(typeof(MarketplaceStockContext))]
-    partial class MarketplaceStockContextModelSnapshot : ModelSnapshot
+    [Migration("20240226102343_ProductsAdded")]
+    partial class ProductsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,17 +61,12 @@ namespace StockDataLayer.Migrations
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Image URL");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float")
-                        .HasColumnName("Price");
 
                     b.HasKey("Id");
 
@@ -77,31 +75,27 @@ namespace StockDataLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("df606eb6-06ac-4b98-b21d-b35308b0f014"),
+                            Id = new Guid("01d7e934-c911-4f93-9c1c-eb82b366ab94"),
                             Image = "https://i.imgur.com/LvKZW4A.png",
-                            Name = "Product 1",
-                            Price = 100.0
+                            Name = "Product 1"
                         },
                         new
                         {
-                            Id = new Guid("18c6759e-8702-4336-abe3-788b99494e1f"),
+                            Id = new Guid("9479eba5-6391-4911-8466-2ec3d962843d"),
                             Image = "https://i.imgur.com/lHDLsU4.png",
-                            Name = "Product 2",
-                            Price = 200.0
+                            Name = "Product 2"
                         },
                         new
                         {
-                            Id = new Guid("30a032b0-805d-43ae-b67d-4a9b44f212aa"),
+                            Id = new Guid("4563ab0b-06cd-4229-b303-23304d1071e2"),
                             Image = "https://i.imgur.com/174MybH.png",
-                            Name = "Product 3",
-                            Price = 300.0
+                            Name = "Product 3"
                         },
                         new
                         {
-                            Id = new Guid("8d5b0bea-21b8-4c6f-8d5a-8263d68a4094"),
+                            Id = new Guid("eb532385-0df0-4226-a50e-16e039294e64"),
                             Image = "https://i.imgur.com/NXYAbHe.png",
-                            Name = "Product 4",
-                            Price = 400.0
+                            Name = "Product 4"
                         });
                 });
 
@@ -145,7 +139,7 @@ namespace StockDataLayer.Migrations
                         {
                             Id = 1,
                             Email = "stock_admin@gmail.com",
-                            Password = "$2a$11$KBJE60DCv6EmzOQL9vMi5OtM7/O41j1.8qDJ3zAJ0RaZysf5ndzvu",
+                            Password = "$2a$11$ZSELXpt8PigPEh.FZxt0h.JeNS.gWsFFTqsdah3gQSj1/Mx4MkLU.",
                             Role = 3,
                             Username = "admin"
                         });

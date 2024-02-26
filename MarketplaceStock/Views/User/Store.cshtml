@@ -1,0 +1,34 @@
+@using StockDataLayer.Models;
+@model IEnumerable<Product>;
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/store.css">
+    <link rel="stylesheet" href="~/css/productCard.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Document</title>
+</head>
+<body>
+    <div class="grid">
+        @foreach(var item in Model)
+        {
+            <i>
+                <div class="product-card">
+                    <img src="@item.Image" alt="">
+                    <h4>@item.Name</h4>
+                    <div>
+                        <span>@item.Price</span>
+                        <button><i class='bx bx-plus'></i></button>
+                    </div>
+                </div>
+            </i>
+        }
+    </div>
+</body>
+</html>
