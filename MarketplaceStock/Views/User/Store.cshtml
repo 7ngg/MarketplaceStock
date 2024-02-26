@@ -15,6 +15,7 @@
     <title>Document</title>
 </head>
 <body>
+    <a href="Basket"><i class='bx bx-basket'></i></a>
     <div class="grid">
         @foreach(var item in Model)
         {
@@ -24,7 +25,12 @@
                     <h4>@item.Name</h4>
                     <div>
                         <span>@item.Price</span>
-                        <button><i class='bx bx-plus'></i></button>
+                        <form method="post" asp-controller="User" asp-action="AddItem">
+                            <button name="addBtn">
+                                <input name="id" type="hidden" value="@item.Id"/>
+                                <i class='bx bx-plus'></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </i>

@@ -1,0 +1,49 @@
+.container {
+    height: 50%;
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 5px rgba(0.1,0.1,0,0.1);
+}
+
+.basket ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+}
+
+.basket ul li {
+    position: relative;
+    padding-bottom: 1px;
+}
+
+.basket ul li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #252525;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.purchase-btn {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
