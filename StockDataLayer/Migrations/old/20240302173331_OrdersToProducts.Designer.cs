@@ -12,8 +12,8 @@ using StockDataLayer.Contexts;
 namespace StockDataLayer.Migrations
 {
     [DbContext(typeof(MarketplaceStockContext))]
-    [Migration("20240302124213_OrderProduct")]
-    partial class OrderProduct
+    [Migration("20240302173331_OrdersToProducts")]
+    partial class OrdersToProducts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace StockDataLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.Property<int>("OrdersId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("OrdersId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("OrderProduct");
+                });
 
             modelBuilder.Entity("StockDataLayer.Models.Order", b =>
                 {
@@ -53,26 +68,10 @@ namespace StockDataLayer.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("StockDataLayer.Models.OrderProduct", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OrderId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderProducts");
-                });
-
             modelBuilder.Entity("StockDataLayer.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -95,28 +94,28 @@ namespace StockDataLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0a2fb9bf-c182-46d2-8070-193f294e2828"),
+                            Id = "96a9770d-8c99-458f-b898-62c767a3ccd6",
                             Image = "https://i.imgur.com/LvKZW4A.png",
                             Name = "Product 1",
                             Price = 100.0
                         },
                         new
                         {
-                            Id = new Guid("09cb716d-e7d4-4d3d-af61-f2659924cd51"),
+                            Id = "4e380a9a-3296-4972-98fd-f29efde14cd6",
                             Image = "https://i.imgur.com/lHDLsU4.png",
                             Name = "Product 2",
                             Price = 200.0
                         },
                         new
                         {
-                            Id = new Guid("a902b534-3dea-41e6-b877-eea658d35d07"),
+                            Id = "93d0730f-bc88-4712-99ee-4d2ca51ae609",
                             Image = "https://i.imgur.com/174MybH.png",
                             Name = "Product 3",
                             Price = 300.0
                         },
                         new
                         {
-                            Id = new Guid("0ff0ca74-84fc-415c-a0f0-35ab91fe3481"),
+                            Id = "0bc12edf-26a5-43e6-8f13-bc135c5c050a",
                             Image = "https://i.imgur.com/NXYAbHe.png",
                             Name = "Product 4",
                             Price = 400.0
@@ -170,10 +169,25 @@ namespace StockDataLayer.Migrations
                         {
                             Id = 1,
                             Email = "stock_admin@gmail.com",
-                            Password = "$2a$11$wYG56M84beizRMaW4OnEnO1gMAYeN7cF8yFQdKYK9UWrDmkKUOl1G",
+                            Password = "$2a$11$YUgft6NlzgvWPInrr18A/.XrPcYHEBtb8VbdsbM4h2vhU4n2q2Xhe",
                             Role = 3,
                             Username = "admin"
                         });
+                });
+
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.HasOne("StockDataLayer.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StockDataLayer.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StockDataLayer.Models.Order", b =>
@@ -185,35 +199,6 @@ namespace StockDataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("StockDataLayer.Models.OrderProduct", b =>
-                {
-                    b.HasOne("StockDataLayer.Models.Order", "Order")
-                        .WithMany("OrderProducts")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockDataLayer.Models.Product", "Product")
-                        .WithMany("OrderProducts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("StockDataLayer.Models.Order", b =>
-                {
-                    b.Navigation("OrderProducts");
-                });
-
-            modelBuilder.Entity("StockDataLayer.Models.Product", b =>
-                {
-                    b.Navigation("OrderProducts");
                 });
 
             modelBuilder.Entity("StockDataLayer.Models.User", b =>

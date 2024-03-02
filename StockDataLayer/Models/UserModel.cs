@@ -7,6 +7,7 @@ namespace StockDataLayer.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public UserRole Role { get; set; }
+
         public ICollection<Order> Orders { get; set; } = [];
 
         public string Token { get; set; }

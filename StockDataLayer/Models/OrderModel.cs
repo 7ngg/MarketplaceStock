@@ -3,25 +3,17 @@ namespace StockDataLayer.Models
     public class Order
     {
         public int Id { get; set; }
-        public DateTime Date { get; }
+        public DateTime Date { get; set; }
 
         #region Order Status
-        public OrderStatus Status { get; }
+        public OrderStatus Status { get; set; }
         #endregion
 
         #region Owner
-        public int UserId { get; init; }
-        public User Owner { get; init; }
+        public int UserId { get; set; }
+        public User Owner { get; set; }
         #endregion
 
-        #region Products
-        public ICollection<OrderProduct> OrderProducts { get; set; } = [];
-        #endregion
-
-        public Order ()
-        {
-            Date = DateTime.Now;
-            Status = OrderStatus.OrderPlaced;
-        }
+        public ICollection<Product> Products { get; set; } = [];
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StockDataLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class OrderProduct : Migration
+    public partial class OrdersToProducts : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,25 +33,33 @@ namespace StockDataLayer.Migrations
                 keyColumn: "Id",
                 keyValue: new Guid("e3953ecb-b2a2-4eaf-abab-02df519b8f6a"));
 
+            migrationBuilder.AlterColumn<string>(
+                name: "Id",
+                table: "Products",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(Guid),
+                oldType: "uniqueidentifier");
+
             migrationBuilder.CreateTable(
-                name: "OrderProducts",
+                name: "OrderProduct",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    OrdersId = table.Column<int>(type: "int", nullable: false),
+                    ProductsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderProducts", x => new { x.OrderId, x.ProductId });
+                    table.PrimaryKey("PK_OrderProduct", x => new { x.OrdersId, x.ProductsId });
                     table.ForeignKey(
-                        name: "FK_OrderProducts_Orders_OrderId",
-                        column: x => x.OrderId,
+                        name: "FK_OrderProduct_Orders_OrdersId",
+                        column: x => x.OrdersId,
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderProducts_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_OrderProduct_Products_ProductsId",
+                        column: x => x.ProductsId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -62,10 +70,10 @@ namespace StockDataLayer.Migrations
                 columns: new[] { "Id", "Image URL", "Name", "Price" },
                 values: new object[,]
                 {
-                    { new Guid("09cb716d-e7d4-4d3d-af61-f2659924cd51"), "https://i.imgur.com/lHDLsU4.png", "Product 2", 200.0 },
-                    { new Guid("0a2fb9bf-c182-46d2-8070-193f294e2828"), "https://i.imgur.com/LvKZW4A.png", "Product 1", 100.0 },
-                    { new Guid("0ff0ca74-84fc-415c-a0f0-35ab91fe3481"), "https://i.imgur.com/NXYAbHe.png", "Product 4", 400.0 },
-                    { new Guid("a902b534-3dea-41e6-b877-eea658d35d07"), "https://i.imgur.com/174MybH.png", "Product 3", 300.0 }
+                    { "0bc12edf-26a5-43e6-8f13-bc135c5c050a", "https://i.imgur.com/NXYAbHe.png", "Product 4", 400.0 },
+                    { "4e380a9a-3296-4972-98fd-f29efde14cd6", "https://i.imgur.com/lHDLsU4.png", "Product 2", 200.0 },
+                    { "93d0730f-bc88-4712-99ee-4d2ca51ae609", "https://i.imgur.com/174MybH.png", "Product 3", 300.0 },
+                    { "96a9770d-8c99-458f-b898-62c767a3ccd6", "https://i.imgur.com/LvKZW4A.png", "Product 1", 100.0 }
                 });
 
             migrationBuilder.UpdateData(
@@ -73,39 +81,47 @@ namespace StockDataLayer.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "Password",
-                value: "$2a$11$wYG56M84beizRMaW4OnEnO1gMAYeN7cF8yFQdKYK9UWrDmkKUOl1G");
+                value: "$2a$11$YUgft6NlzgvWPInrr18A/.XrPcYHEBtb8VbdsbM4h2vhU4n2q2Xhe");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderProducts_ProductId",
-                table: "OrderProducts",
-                column: "ProductId");
+                name: "IX_OrderProduct_ProductsId",
+                table: "OrderProduct",
+                column: "ProductsId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderProducts");
+                name: "OrderProduct");
 
             migrationBuilder.DeleteData(
                 table: "Products",
                 keyColumn: "Id",
-                keyValue: new Guid("09cb716d-e7d4-4d3d-af61-f2659924cd51"));
+                keyValue: "0bc12edf-26a5-43e6-8f13-bc135c5c050a");
 
             migrationBuilder.DeleteData(
                 table: "Products",
                 keyColumn: "Id",
-                keyValue: new Guid("0a2fb9bf-c182-46d2-8070-193f294e2828"));
+                keyValue: "4e380a9a-3296-4972-98fd-f29efde14cd6");
 
             migrationBuilder.DeleteData(
                 table: "Products",
                 keyColumn: "Id",
-                keyValue: new Guid("0ff0ca74-84fc-415c-a0f0-35ab91fe3481"));
+                keyValue: "93d0730f-bc88-4712-99ee-4d2ca51ae609");
 
             migrationBuilder.DeleteData(
                 table: "Products",
                 keyColumn: "Id",
-                keyValue: new Guid("a902b534-3dea-41e6-b877-eea658d35d07"));
+                keyValue: "96a9770d-8c99-458f-b898-62c767a3ccd6");
+
+            migrationBuilder.AlterColumn<Guid>(
+                name: "Id",
+                table: "Products",
+                type: "uniqueidentifier",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
 
             migrationBuilder.InsertData(
                 table: "Products",
