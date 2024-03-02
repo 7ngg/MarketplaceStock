@@ -12,6 +12,7 @@ namespace StockDataLayer.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -56,6 +57,10 @@ namespace StockDataLayer.Contexts
                     .HasColumnName("Role")
                     .HasDefaultValue(UserRole.User)
                     .IsRequired();
+                user
+                    .Property(u => u.Token)
+                    .HasColumnName("Token")
+                    .HasDefaultValue(string.Empty);
             });
 
             modelBuilder.Entity<Order>(order => {
@@ -69,6 +74,20 @@ namespace StockDataLayer.Contexts
                     .HasColumnName("Status")
                     .HasDefaultValue(OrderStatus.OrderPlaced)
                     .IsRequired();
+            });
+
+            modelBuilder.Entity<OrderProduct>(orderProduct =>
+            {
+                orderProduct.HasKey(op => new { op.OrderId, op.ProductId });
+                orderProduct
+                    .HasOne(op => op.Order)
+                    .WithMany(o => o.OrderProducts)
+                    .HasForeignKey(op => op.OrderId);
+
+                modelBuilder.Entity<OrderProduct>()
+                    .HasOne(op => op.Product)
+                    .WithMany(p => p.OrderProducts)
+                    .HasForeignKey(op => op.ProductId);
             });
         
             modelBuilder.Entity<Product>().HasData(

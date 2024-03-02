@@ -14,6 +14,10 @@ namespace StockDataLayer.Models
         public User Owner { get; init; }
         #endregion
 
+        #region Products
+        public ICollection<OrderProduct> OrderProducts { get; set; } = [];
+        #endregion
+
         public Order ()
         {
             Date = DateTime.Now;
