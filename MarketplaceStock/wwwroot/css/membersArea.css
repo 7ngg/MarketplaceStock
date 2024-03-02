@@ -121,20 +121,20 @@ body {
 }
 
 #popup-window {
-  position: fixed;
-  width: 500px;
-  height: 700px;
-  background: #252525;
-  border: 1px solid black;
-  border-radius: 3px;
-  padding: 10px;
-  margin: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
-  display: none;
+    position: fixed;
+    width: 500px;
+    height: 700px;
+    background: #252525;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 10px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
 }
 
 ul {
@@ -142,17 +142,18 @@ ul {
 }
 
 #popup-title {
-  position: absolute;
-  left: 40%;
-  margin-top: 5px;
-  color: #fff;
+    position: absolute;
+    left: 40%;
+    margin-top: 5px;
+    color: #fff;
+    text-decoration: underline;
 }
 
 .input-box {
     width: 90%;
     height: 50px;
     margin-top: 30px; 
-    border-radius: 40px;
+    border-radius: 3px;
     font-size: 20px;
     border: none;
     outline: none;
@@ -168,12 +169,12 @@ ul {
 }
 
 .btn {
-    width: 50px;
+    width: 100px;
     height: 40px;
     background: #fff;
     border: none;
     outline: none;
-    border-radius: 40px;
+    border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 16px;
@@ -182,10 +183,19 @@ ul {
 }
 
 .close-btn {
+    width: 40px;
+    height: 40px;
     position: absolute;
     top: 8px;
     right: 16px;
     font-size: 18px;
+    background: transparent;
+    color: #fff;
+}
+
+.close-btn:hover {
+    background-color: #fff;
+    color: #252525;
 }
 
 .btn-container {
@@ -202,4 +212,6 @@ ul {
     display: inline-block;
     margin-right: 10px;
 }
+
+
 

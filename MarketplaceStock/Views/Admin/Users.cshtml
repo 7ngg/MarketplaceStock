@@ -19,8 +19,8 @@
 <body>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Users</a>
-        <a href="#">Products</a>
+        <a href="Users">Users</a>
+        <a href="Products">Products</a>
     </div>
     <div id="main">
         <span onclick="openNav()">&#9776;</span>
@@ -48,9 +48,9 @@
         </ul>
     </div>
     <div id="popup-window">
-        <form asp-controller="Users" method="dialog">
+        <form asp-controller="Users" method="post">
             <h3 id="popup-title"></h3>
-            <button class="btn close-btn" onclick="closeForm()">&times;</button>
+            <button class="btn close-btn" onclick="closeForm()" asp-action="Close">&times;</button>
             <div>
                 <ul class="user-data">
                     <li class="user-data-item"><input type="hidden" name="selectedUser" id="selectedUser"></li> 
@@ -58,6 +58,13 @@
                     <li class="user-data-item"><input class="input-box" name="newPassword" id="password" type="text" placeholder="Password"></li>
                     <li class="user-data-item"><input class="input-box" name="newEmail" id="email" type="email" placeholder="Email"></li>
                 </ul>
+            </div>
+            <div>
+                <select name="newRole">
+                    <option value="1">User</option>
+                    <option value="2">Moderator</option>
+                    <option value="3">Admin</option>
+                </select>
             </div>
             <div class="btn-container">
                 <ul class="horizontal-list">

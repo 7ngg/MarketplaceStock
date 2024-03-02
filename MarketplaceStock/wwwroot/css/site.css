@@ -1,6 +1,7 @@
 .navigation-bar {
   background-color: #252525;
   overflow: hidden;
+  border-radius: 3px;
 }
 
 .navigation-bar a {
@@ -17,5 +18,6 @@
   background-color: #fff;
   color: #000;
   text-decoration: underline;
+  border-radius: 3px;
 }
 
