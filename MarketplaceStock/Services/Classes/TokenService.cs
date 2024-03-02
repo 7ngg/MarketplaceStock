@@ -22,8 +22,6 @@ namespace MarketplaceStock.Services.Classes
         {
             var claims = new List<Claim>
             {
-                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
                 new(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new(ClaimTypes.Name, user.Username),
                 new(ClaimTypes.Email, user.Email),
@@ -31,8 +29,6 @@ namespace MarketplaceStock.Services.Classes
             };
 
             var jwt = new JwtSecurityToken(
-                issuer: _configuration["JWTSettings:Issuer"],
-                audience: _configuration["JWTSettings:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(15),
                 signingCredentials: new SigningCredentials(

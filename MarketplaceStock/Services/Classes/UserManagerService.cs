@@ -1,5 +1,6 @@
 using MarketplaceStock.Services.Intefaces;
 using StockDataLayer.Contexts;
+using StockDataLayer.Models;
 
 namespace MarketplaceStock.Services.Classes
 {
@@ -17,5 +18,7 @@ namespace MarketplaceStock.Services.Classes
 
         public string FindUsername(string username)
             => _context.Users.FirstOrDefault(u => u.Username == username).Username;
+
+        public User GetUser(int id) => _context.Users.FirstOrDefault(u => u.Id == id);
     }
 }

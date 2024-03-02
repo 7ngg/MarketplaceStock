@@ -1,0 +1,36 @@
+﻿@using StockDataLayer.Models;
+@model IEnumerable<Order>;
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Orders</title>
+    <link href="~/css/membersArea.css" rel="stylesheet">
+</head>
+<body>
+    <div class="table-container">
+        <ul class="table">
+            <li class="table-header">
+                <div class="col col-1">@Html.DisplayNameFor(model => model.Id)</div>
+                <div class="col col-1">@Html.DisplayNameFor(model => model.Date)</div>
+                <div class="col col-1">@Html.DisplayNameFor(model => model.Status)</div>
+            </li>
+            @foreach (var order in Model)
+            {
+                <a href="#">
+                    <li class="table-row">
+                        <div class="col col-1">@order.Id</div>
+                        <div class="col col-2">@order.Date</div>
+                        <div class="col col-3">@order.Status</div>
+                    </li>
+                </a>
+            }
+        </ul>
+    </div>
+</body>
+</html>

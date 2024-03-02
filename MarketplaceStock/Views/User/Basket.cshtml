@@ -9,20 +9,20 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
+        <title>Bag</title>
         <link href="~/css/basket.css" rel="stylesheet">
     </head>
     <body>
         <div class="container">
             <div class="basket">
                 <ul>
-                    <li>Item1</li>
-                    <li>Item1</li>
-                    <li>Item1</li>
-                    <li>Item1</li>
-                </ul>
+                    @foreach (var item in Model)
+                    {
+                        <li>@item.Name</li>
+                    }
+            </ul>
             </div>
-            <form class="button-container" asp-controller="User" asp-action="">
+            <form class="button-container" asp-controller="User" asp-action="Purchase">
                 <button class="purchase-btn" type="submit">Purchase</button>
             </form>
         </div>

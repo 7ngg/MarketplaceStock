@@ -41,7 +41,15 @@ namespace MarketplaceStock.Controllers
 
             var user = _context.Users.First(u => u.Username == username);
             var token = _tokenService.CreateToken(user);
-            return RedirectToAction("Index", $"{user.Role}", _context.Products);
+
+            user.Token = token;
+            _context.SaveChanges();
+
+            Response.Cookies.Append("CurrentUserId", user.Id.ToString(), new CookieOptions()
+            {
+                Expires = DateTimeOffset.Now.AddMinutes(30),
+            });
+            return RedirectToAction("Index", $"{user.Role}");
         }
 
         [HttpPost]
@@ -51,7 +59,11 @@ namespace MarketplaceStock.Controllers
             {
                 if (confirm == password)
                 {
-                    _context.Users.Add(new User { Username = username, Password = BCrypt.Net.BCrypt.EnhancedHashPassword(password), Email = email });
+                    _context.Users.Add(new User {
+                            Username = username,
+                            Password = BCrypt.Net.BCrypt.EnhancedHashPassword(password),
+                            Email = email
+                        });
                     _context.SaveChanges();
                     return RedirectToPage("/SignIn");
                 }

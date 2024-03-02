@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StockDataLayer.Contexts;
 
 namespace MarketplaceStock.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly MarketplaceStockContext _context;
