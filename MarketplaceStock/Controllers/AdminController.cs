@@ -38,18 +38,19 @@ namespace MarketplaceStock.Areas.Admin.Controllers
         public IActionResult Save(string selectedUser, string newUsername, string newPassword, string newEmail, string newRole)
         {
             var user = _context.Users.FirstOrDefault(u => u.Username == selectedUser);
+            var role = (UserRole)Enum.Parse(typeof(UserRole), newRole);
 
-            user.Username = newUsername;
-            user.Password = newPassword;
-            user.Email = newEmail;
-            user.Role = (UserRole)Enum.Parse(typeof(UserRole), newRole);
+            if (user.Username != newUsername) user.Username = newUsername;
+            if (user.Password != newPassword) user.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(newPassword);
+            if (user.Email != newEmail) user.Email = newEmail;
+            if (user.Role != role) user.Role = role;
 
             _context.SaveChanges();
             return RedirectToAction("Users", "Admin");
         }
 
         [HttpPost("Remove")]
-        public void Remove(string selectedUser)
+        public IActionResult Remove(string selectedUser)
         {
             var user = _context.Users.FirstOrDefault(u => u.Username == selectedUser);
             if (user != null)
@@ -57,6 +58,8 @@ namespace MarketplaceStock.Areas.Admin.Controllers
                 _context.Users.Remove(user);
                 _context.SaveChanges();
             }
+
+            return RedirectToAction("Users", "Admin");
         }
 
         public IActionResult AddNewProduct(string productName, string productImage, int productPrice)
