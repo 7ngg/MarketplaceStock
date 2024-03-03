@@ -55,15 +55,19 @@ namespace MarketplaceStock.Services.Classes
             return refreshToken;
         }
 
-        public void SetRefreshToken(User user, RefreshToken refreshToken)
+        public void SetRefreshToken(User user, string token, RefreshToken refreshToken)
         {
-            var cookieOptions = new CookieOptions
+            _hca.HttpContext.Response.Cookies.Append("refreshToken", refreshToken.Token, new CookieOptions
             {
                 HttpOnly = true,
                 Expires = refreshToken.Expires,
-            };
+            });
 
-            _hca.HttpContext.Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
+            _hca.HttpContext.Response.Cookies.Append("Token", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddHours(1),
+            });
 
             user.RefreshToken = refreshToken.Token;
             user.TokenCreated = refreshToken.Created;
@@ -86,7 +90,7 @@ namespace MarketplaceStock.Services.Classes
 
             string token = GenerateToken(user);
             var newRefreshToken = GenerateRefreshToken();
-            SetRefreshToken(user, newRefreshToken);
+            SetRefreshToken(user, token, newRefreshToken);
 
             return token;
         }

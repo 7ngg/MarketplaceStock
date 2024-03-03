@@ -43,13 +43,6 @@ namespace MarketplaceStock.Controllers
 
             var code = await _otpService.SendOTP(pendingUser.Email);
             code.UserEmail = pendingUser.Email;
-            //var code = new OTPModel
-            //{
-            //    Code = 1234,
-            //    Created = DateTime.UtcNow,
-            //    Expires = DateTime.UtcNow.AddMinutes(3),
-            //    UserEmail = pendingUser.Email
-            //};
 
             _context.OTPCodes.Add(code);
             _context.SaveChanges();
@@ -69,7 +62,7 @@ namespace MarketplaceStock.Controllers
             var user = _context.Users.First(u => u.Username == username);
             var token = _tokenService.GenerateToken(user);
             var refreshToken = _tokenService.GenerateRefreshToken();
-            _tokenService.SetRefreshToken(user, refreshToken);
+            _tokenService.SetRefreshToken(user, token, refreshToken);
 
             _context.SaveChanges();
 

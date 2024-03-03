@@ -6,7 +6,7 @@ namespace MarketplaceStock.Services.Intefaces
     {
         string GenerateToken(User user);
         RefreshToken GenerateRefreshToken();
-        void SetRefreshToken(User user, RefreshToken refreshToken);
+        void SetRefreshToken(User user, string token, RefreshToken refreshToken);
         string RefreshToken(User user);
     }
 }
