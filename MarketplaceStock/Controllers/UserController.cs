@@ -23,7 +23,7 @@ namespace MarketplaceStock.Areas.User.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Store", "User");
         }
 
         public IActionResult Store() => View(_context.Products);

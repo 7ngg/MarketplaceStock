@@ -38,6 +38,9 @@
     }
 
 #main {
+    position: absolute;
+    top: 15px;
+    left: 10px;
     transition: margin-left .5s;
     padding-left: 20px;
     font-size: 30px;
@@ -45,7 +48,7 @@
 }
 
     #main span {
-        color: #252525;
+        color: #fff;
     }
 
 @media screen and (max-height: 450px) {

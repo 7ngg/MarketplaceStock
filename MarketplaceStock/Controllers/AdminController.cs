@@ -18,7 +18,7 @@ namespace MarketplaceStock.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Users", "Admin");
         }
 
         public IActionResult Users()
