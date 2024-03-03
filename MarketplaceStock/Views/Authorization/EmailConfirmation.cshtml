@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm email</title>
+    <link rel="stylesheet" href="~/css/auth.css">
+    <script src="~/js/authorizationTimer.js" defer></script>
+</head>
+<body>
+    <form method="post" asp-action="ConfirmEmail">
+        <div class="wrapper">
+            <h1>Confirm email</h1>
+            <div class="input-box">
+                <input type="text" name="code" minlength="4" maxlength="4" placeholder="Code" required />
+            </div>
+            <div class="register-link">
+                <p>Didn't get the code? Resend in </p>
+                <p id="timer">03:00</p>
+                <a id="resendBtn" asp-controller="Authorization" asp-action="EmailConfirmation">resend</a>
+            </div>
+            <button type="submit" class="btn">Confirm</button>
+        </div>
+    </form>
+</body>
+</html>

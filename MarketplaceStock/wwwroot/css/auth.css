@@ -103,6 +103,20 @@ body {
     margin: 20px 0 15px;
 }
 
+.wrapper a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.wrapper a:hover {
+    text-decoration: underline;
+}
+
+#resendBtn {
+    display: none;
+}
+
 .register-link p a {
     color: #fff;
     text-decoration: none;
