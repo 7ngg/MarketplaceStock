@@ -131,7 +131,21 @@ namespace MarketplaceStock.Controllers
                 return RedirectToAction("SignIn", "Authorization");
             }
 
+            _context.OTPCodes.Remove(response);
+            _context.SaveChanges();
+            
             return BadRequest("Please, try again");
+        }
+
+        public IActionResult Resend()
+        {
+            var pendingUser = JsonConvert.DeserializeObject<User>(Request.Cookies["PendingUser"]);
+            var response = _context.OTPCodes.Where(o => o.UserEmail == pendingUser.Email).ToList();
+
+            _context.OTPCodes.RemoveRange(response);
+            _context.SaveChanges();
+
+            return RedirectToAction("EmailConfirmation", "Authorization");
         }
 
         public IActionResult SignOut()
