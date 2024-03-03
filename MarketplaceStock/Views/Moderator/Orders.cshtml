@@ -1,0 +1,48 @@
+﻿@using StockDataLayer.Models;
+@model IEnumerable<Order>;
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/membersArea.css">
+</head>
+<body>
+    <div class="table-container">
+        <ul class="table">
+            <li class="table-header">
+                <div class="col col-1">@Html.DisplayNameFor(model => model.Id)</div>
+                <div class="col col-2">@Html.DisplayNameFor(model => model.Owner)</div>
+                <div class="col col-3">@Html.DisplayNameFor(model => model.Status)</div>
+                <div class="col col-4">@Html.DisplayNameFor(model => model.Date)</div>
+                <div class="col col-5"></div>
+            </li>
+            @foreach (var product in Model)
+            {
+                <form method="post" asp-controller="Moderator">
+                    <li class="table-row">
+                        <input type="hidden" name="productId" value="@product.Id">
+                        <div class="col col-1">@product.Id</div>
+                        <div class="col col-2">@product.Owner.Username</div>
+                        <select class="col col-3 select-wrapper" name="newStatus">
+                            <option selected="selected">@product.Status</option>
+                            <option value="1">Placed</option>
+                            <option value="2">Sent</option>
+                            <option value="3">In customs</option>
+                            <option value="4">Delivered</option>
+                        </select>
+                        <div class="col col-4">@product.Date</div>
+                        <div class="col col-5">
+                            <button class="btn" type="submit" asp-controller="Moderator" asp-action="SaveOrder"><i class='bx bx-save'></i></button>
+                        </div>
+                    </li>
+                </form>
+            }
+        </ul>
+    </div>
+</body>
+</html>

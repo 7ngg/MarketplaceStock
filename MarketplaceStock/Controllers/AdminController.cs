@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StockDataLayer.Contexts;
 using StockDataLayer.Models;
+using System.Net.Http.Headers;
 
 namespace MarketplaceStock.Areas.Admin.Controllers
 {
@@ -56,6 +57,21 @@ namespace MarketplaceStock.Areas.Admin.Controllers
                 _context.Users.Remove(user);
                 _context.SaveChanges();
             }
+        }
+
+        public IActionResult AddNewProduct(string productName, string productImage, int productPrice)
+        {
+            var product = new Product()
+            {
+                Name = productName,
+                Image = productImage,
+                Price = productPrice
+            };
+
+            _context.Products.Add(product);
+            _context.SaveChanges();
+
+            return RedirectToAction("Products", "Admin");
         }
     }
 }

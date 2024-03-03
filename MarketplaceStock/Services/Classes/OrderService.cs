@@ -23,7 +23,8 @@ namespace MarketplaceStock.Services.Classes
             var order = new Order()
             {
                 Owner = user,
-                Products = products
+                Products = products,
+                Date = DateTime.Now,
             };
 
             user.Orders.Add(order);

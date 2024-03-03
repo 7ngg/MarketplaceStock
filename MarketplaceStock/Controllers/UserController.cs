@@ -60,7 +60,7 @@ namespace MarketplaceStock.Areas.User.Controllers
 
             _orderService.CreateOrder(userId, bag);
             Response.Cookies.Delete("Bag");
-            return Ok(_context.Users.First(u => u.Id == userId));
+            return RedirectToAction("Store", "User");
         }
 
         private void SaveToCookies(List<Product> bag)

@@ -81,7 +81,7 @@ namespace StockDataLayer.Contexts
                     .HasDefaultValue(DateTime.Now);
                 order
                     .Property(o => o.Status)
-                    .HasDefaultValue(OrderStatus.OrderPlaced);
+                    .HasDefaultValue(OrderStatus.Placed);
             });
         }
     }

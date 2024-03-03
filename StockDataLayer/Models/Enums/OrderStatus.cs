@@ -2,8 +2,7 @@ namespace StockDataLayer.Models
 {
     public enum OrderStatus
     {
-        OrderPlaced = 1,
-        ArrivedOnStock,
+        Placed = 1,
         Sent,
         InCustoms,
         Delivered
