@@ -5,5 +5,5 @@ obj/
 bin/
 
 # files
-app-settings.json
+# app-settings.json
 *.user
