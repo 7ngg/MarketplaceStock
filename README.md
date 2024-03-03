@@ -1,1 +1,1 @@
-[image](https://umico.az/_ipx/_/https://strgimgr.umico.az/sized/840/257559-237b54512b72984cef3c6d5ffe21328f.jpg)
+![257559-237b54512b72984cef3c6d5ffe21328f](https://github.com/7ngg/MarketplaceStock/assets/127057498/523da852-a29d-425a-b5b4-2d05e15edd0f)
