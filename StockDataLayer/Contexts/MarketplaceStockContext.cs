@@ -28,7 +28,7 @@ namespace StockDataLayer.Contexts
                     .Property(u => u.Role)
                     .HasDefaultValue(UserRole.User);
                 user
-                    .Property(u => u.Token)
+                    .Property(u => u.RefreshToken)
                     .HasDefaultValue(string.Empty);
                 user.HasData(
                     new User

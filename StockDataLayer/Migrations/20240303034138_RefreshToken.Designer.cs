@@ -12,8 +12,8 @@ using StockDataLayer.Contexts;
 namespace StockDataLayer.Migrations
 {
     [DbContext(typeof(MarketplaceStockContext))]
-    [Migration("20240217110530_AdminAdded")]
-    partial class AdminAdded
+    [Migration("20240303034138_RefreshToken")]
+    partial class RefreshToken
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,14 +34,14 @@ namespace StockDataLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Date")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasColumnName("Date");
+                        .HasDefaultValue(new DateTime(2024, 3, 2, 19, 41, 38, 153, DateTimeKind.Local).AddTicks(6898));
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasDefaultValue(1)
-                        .HasColumnName("Status");
+                        .HasDefaultValue(1);
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -55,18 +55,61 @@ namespace StockDataLayer.Migrations
 
             modelBuilder.Entity("StockDataLayer.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Name");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OrderId");
+
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Image = "https://i.imgur.com/LvKZW4A.png",
+                            Name = "Product 1",
+                            Price = 100.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Image = "https://i.imgur.com/lHDLsU4.png",
+                            Name = "Product 2",
+                            Price = 200.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Image = "https://i.imgur.com/174MybH.png",
+                            Name = "Product 3",
+                            Price = 300.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Image = "https://i.imgur.com/NXYAbHe.png",
+                            Name = "Product 4",
+                            Price = 400.0
+                        });
                 });
 
             modelBuilder.Entity("StockDataLayer.Models.User", b =>
@@ -79,26 +122,32 @@ namespace StockDataLayer.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Email");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Password");
+                        .HasDefaultValue("");
 
                     b.Property<int>("Role")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasDefaultValue(1)
-                        .HasColumnName("Role");
+                        .HasDefaultValue(1);
+
+                    b.Property<DateTime>("TokenCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TokenExpires")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)")
-                        .HasColumnName("Username");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -109,8 +158,10 @@ namespace StockDataLayer.Migrations
                         {
                             Id = 1,
                             Email = "stock_admin@gmail.com",
-                            Password = "$2a$11$PnSNJyZ4yQrBBTnC/b60IO5TjYOxbAzjS1QvApayMl5ylaqB84BGq",
-                            Role = 0,
+                            Password = "$2a$11$N6QUH6g5KfNB.PiFAc6yMec63395p82OSTPtSiERFgeep.CG3X9Ca",
+                            Role = 3,
+                            TokenCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenExpires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "admin"
                         });
                 });
@@ -124,6 +175,18 @@ namespace StockDataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("StockDataLayer.Models.Product", b =>
+                {
+                    b.HasOne("StockDataLayer.Models.Order", null)
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("StockDataLayer.Models.Order", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("StockDataLayer.Models.User", b =>

@@ -33,7 +33,7 @@ namespace StockDataLayer.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 2, 10, 53, 33, 983, DateTimeKind.Local).AddTicks(5811));
+                        .HasDefaultValue(new DateTime(2024, 3, 2, 19, 41, 38, 153, DateTimeKind.Local).AddTicks(6898));
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
@@ -125,16 +125,22 @@ namespace StockDataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("");
+
                     b.Property<int>("Role")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(1);
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("");
+                    b.Property<DateTime>("TokenCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TokenExpires")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -149,8 +155,10 @@ namespace StockDataLayer.Migrations
                         {
                             Id = 1,
                             Email = "stock_admin@gmail.com",
-                            Password = "$2a$11$MkoPVnMS/hWOHLdvRz3gtOWVDb8mCt.T3rD7SlW2JXubGaxStDZcS",
+                            Password = "$2a$11$N6QUH6g5KfNB.PiFAc6yMec63395p82OSTPtSiERFgeep.CG3X9Ca",
                             Role = 3,
+                            TokenCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenExpires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "admin"
                         });
                 });

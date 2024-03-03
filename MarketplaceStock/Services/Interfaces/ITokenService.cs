@@ -4,6 +4,9 @@ namespace MarketplaceStock.Services.Intefaces
 {
     public interface ITokenService
     {
-        string CreateToken(User user);
+        string GenerateToken(User user);
+        RefreshToken GenerateRefreshToken();
+        void SetRefreshToken(User user, RefreshToken refreshToken);
+        string RefreshToken(User user);
     }
 }

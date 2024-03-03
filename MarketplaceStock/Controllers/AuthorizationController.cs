@@ -9,14 +9,12 @@ namespace MarketplaceStock.Controllers
     {
         private readonly MarketplaceStockContext _context;
         private readonly ITokenService _tokenService;
-        private readonly IConfiguration _configuration;
         private readonly IUserManagerService _userManager;
 
-        public AuthorizationController(MarketplaceStockContext context, ITokenService tokenService, IConfiguration configuration, IUserManagerService userManager)
+        public AuthorizationController(MarketplaceStockContext context, ITokenService tokenService, IUserManagerService userManager)
         {
             _context = context;
             _tokenService = tokenService;
-            _configuration = configuration;
             _userManager = userManager;
         }
 
@@ -40,9 +38,10 @@ namespace MarketplaceStock.Controllers
             if (!isPasswordValid) return BadRequest("Invalid credentials");
 
             var user = _context.Users.First(u => u.Username == username);
-            var token = _tokenService.CreateToken(user);
+            var token = _tokenService.GenerateToken(user);
+            var refreshToken = _tokenService.GenerateRefreshToken();
+            _tokenService.SetRefreshToken(user, refreshToken);
 
-            user.Token = token;
             _context.SaveChanges();
 
             Response.Cookies.Append("CurrentUserId", user.Id.ToString(), new CookieOptions()
@@ -59,13 +58,15 @@ namespace MarketplaceStock.Controllers
             {
                 if (confirm == password)
                 {
-                    _context.Users.Add(new User {
-                            Username = username,
-                            Password = BCrypt.Net.BCrypt.EnhancedHashPassword(password),
-                            Email = email
-                        });
+                    var user = new User()
+                    {
+                        Username = username,
+                        Password = BCrypt.Net.BCrypt.EnhancedHashPassword(password),
+                        Email = email
+                    };
+                    _context.Users.Add(user);
                     _context.SaveChanges();
-                    return RedirectToPage("/SignIn");
+                    return RedirectToAction("Index", $"{user.Role}");
                 }
             }
 

@@ -26,6 +26,8 @@ builder.Services.AddDbContext<MarketplaceStockContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Local"));
 });
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserManagerService, UserManagerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
