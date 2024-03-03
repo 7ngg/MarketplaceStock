@@ -12,6 +12,7 @@ namespace StockDataLayer.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OTPModel> OTPCodes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,6 +40,19 @@ namespace StockDataLayer.Contexts
                         Email = "stock_admin@gmail.com",
                         Role = UserRole.Admin
                     });
+            });
+
+            modelBuilder.Entity<OTPModel>(otp =>
+            {
+                otp
+                    .Property(o => o.Code)
+                    .HasDefaultValue(-1);
+                otp
+                    .Property(o => o.Created)
+                    .HasDefaultValue(DateTime.UtcNow);
+                otp
+                    .Property(o => o.Expires)
+                    .HasDefaultValue(DateTime.UtcNow.AddMinutes(3));
             });
 
             modelBuilder.Entity<Product>(product =>
